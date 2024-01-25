@@ -1,0 +1,85 @@
+﻿How to compare two JSON whether they have same properties without order ?
+Answer:
+1. Json stands for Javascript Object Notation. It is a way of representing the data. 
+2. It is similar to Objects notation of javascript. 
+3. Each object is surrounded by curly braces. It has Key and Values. Each Key is again surrounded by quotation marks. 
+4. And each key is separated by value with semi-colon.
+5. The values are also surrounded by quotation marks.
+6. Mainly the JSON is used in the server. When the client requests the data , the server sends it in the JSON format. Then the browser will convert it into object and uses the data by the use of parse method.
+Example: var obj1 = { 
+                                name : “person 1”,
+                                age : 5,
+                                };
+  var obj2 = {
+                age : 5,
+                name : “person 1”,
+                };
+To verify whether two objects are having same properties we need to follow below code. 
+function checkWhetherSame(obj1, obj2) {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  for (const key of keys1) {
+    if (obj1[key] !== obj2[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+function compareJSON(jsonStr1, jsonStr2) {
+  let obj1 = {
+    name: "person 1",
+    age: 5,
+  };
+  let obj2 = {
+    age: 5,
+    name: "person 1",
+  };
+  // Compare the objects using the checkWhetherSame function
+  const result = checkWhetherSame(obj1, obj2);
+  console.log(result ? "Objects are equal" : "Objects are not equal");
+}
+compareJSON(obj1, obj2);
+Question 2 : Use the rest countries API URL https://restcountries.com/v3.1/all  and display all the country flags in the console.
+Answer : 
+        // the below line will create a XML request object.
+        var request = new XMLHttpRequest();
+        // then the object will create a request of open and have arguments as GET and URL.
+        request.open(“GET” , “https://restcountries.com/v3.1/all”
+        // then the send command will send the request to the server.
+        request.send();
+        // when the request it sent then the API will get the response back to the client , by using onload() method we can check whether response has data.
+        request.onload = function () {
+        //we need to convert the data received which will be of JSON into the objects using the parse method.
+        var data = JSON.parse(request.response)
+        // by using for loop we can print the flags of all countries
+        for( let I = 0; I < data.length; I++)
+        {
+                let output = data[I].flag;
+                console.log(output);
+        }
+    };
+Question 3 : Use the same rest countries and print all countries names, region, sub-region and population
+Answer : 
+// the below line will create a XML request object.
+        var request = new XMLHttpRequest();
+        // then the object will create a request of open and have arguments as GET and URL.
+        request.open(“GET” , “https://restcountries.com/v3.1/all”
+        // then the send command will send the request to the server.
+        request.send();
+        // when the request it sent then the API will get the response back to the client , by using onload() method we can check whether response has data.
+        request.onload = function () {
+        //we need to convert the data received which will be of JSON into the objects using the parse method.
+        var data = JSON.parse(request.response)
+        // by using for loop we can print the population, region, subRegion and name of all countries
+        for( let I = 0; I < data.length; I++)
+        {
+                let region = data[I].region;
+                let population = data[I].population;
+                let subRegion = data[I].subregion;
+                let nameOfCountry = data[I].name.common;
+                console.log(nameOfCountry, region, population , subRegion);
+        }
+    };
